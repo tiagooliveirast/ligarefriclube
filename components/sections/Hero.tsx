@@ -74,7 +74,7 @@ export default function Hero() {
                 🔑
               </div>
               <p className="font-display mt-3 text-center text-base font-bold sm:text-lg">{k.name}</p>
-              <p className="tnum text-center text-sm text-[#8DA2BF]">
+              <p className="tnum text-center text-[15px] text-[#8DA2BF]">
                 {k.bill}/mês
               </p>
             </div>

@@ -19,6 +19,67 @@ const INCLUSO = [
   "Acesso às Chaves de Reconhecimento",
 ];
 
+function CardPreco() {
+  return (
+    <div className="card-border relative overflow-hidden rounded-3xl bg-[#0D1420]/95 p-6 shadow-[0_20px_80px_-20px_rgba(30,123,255,0.5)] sm:p-10">
+      <ul className="space-y-3.5">
+        {INCLUSO.map((item) => (
+          <li key={item} className="flex items-start gap-3 text-[16px] sm:text-[17px]">
+            <span
+              aria-hidden="true"
+              className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[rgba(91,200,255,0.15)] text-sm font-bold text-[#5BC8FF]"
+            >
+              ✓
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+        <li className="flex items-start gap-3 text-[16px] font-bold text-[#E8C26A] sm:text-[17px]">
+          <span
+            aria-hidden="true"
+            className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[rgba(232,194,106,0.15)] text-sm"
+          >
+            ✓
+          </span>
+          <span>
+            Boné oficial do Refriclube{" "}
+            <span className="font-medium">(primeiros {site.boneVagas} membros)</span>
+          </span>
+        </li>
+      </ul>
+
+      <div className="mt-8 border-t border-[rgba(148,197,255,0.12)] pt-8 text-center">
+        <p className="text-sm uppercase tracking-[0.22em] text-[#8DA2BF]">
+          Assinatura anual
+        </p>
+        <p className="font-display mt-3 text-[clamp(2rem,7vw,3rem)] font-extrabold leading-none">
+          {site.parcelas}
+        </p>
+        <p className="mt-3 text-lg text-[#8DA2BF]">
+          ou <strong className="text-[#EAF2FF]">{site.precoAvista}</strong> à vista
+        </p>
+        <div className="mx-auto mt-6 max-w-sm">
+          <BonesBar />
+        </div>
+        {site.prazoOferta ? (
+          <div className="mt-6 flex justify-center">
+            <Countdown />
+          </div>
+        ) : null}
+        <div className="mt-7">
+          <CTAButton className="w-full sm:w-auto sm:min-w-[320px]">
+            Quero entrar na Liga agora
+          </CTAButton>
+        </div>
+        <p className="mt-4 text-[15px] text-[#8DA2BF]">
+          🔒 Pagamento seguro pela Hotmart · Cartão, Pix e boleto
+        </p>
+        {/* TODO: [AJUSTAR] confirmar métodos de pagamento habilitados na Hotmart (Cartão, Pix, boleto). */}
+      </div>
+    </div>
+  );
+}
+
 export default function Oferta() {
   const ref = useRef<HTMLElement>(null);
 
@@ -71,93 +132,47 @@ export default function Oferta() {
 
         <div className="relative mt-12 overflow-x-clip">
           <GradientMesh />
-          <div className="relative grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-            {/* Card principal */}
-            <Reveal>
-              <div className="card-border relative overflow-hidden rounded-3xl bg-[#0D1420]/95 p-6 shadow-[0_20px_80px_-20px_rgba(30,123,255,0.5)] sm:p-10">
-                <ul className="space-y-3.5">
-                  {INCLUSO.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[16px] sm:text-[17px]">
-                      <span
-                        aria-hidden="true"
-                        className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[rgba(91,200,255,0.15)] text-sm font-bold text-[#5BC8FF]"
-                      >
-                        ✓
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                  <li className="flex items-start gap-3 text-[16px] font-bold text-[#E8C26A] sm:text-[17px]">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[rgba(232,194,106,0.15)] text-sm"
-                    >
-                      ✓
-                    </span>
-                    <span>
-                      Boné oficial do Refriclube{" "}
-                      <span className="font-medium">(primeiros {site.boneVagas} membros)</span>
-                    </span>
-                  </li>
-                </ul>
+          {site.mostrarFotoBone ? (
+            <div className="relative grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+              {/* Card principal */}
+              <Reveal>
+                <CardPreco />
+              </Reveal>
 
-                <div className="mt-8 border-t border-[rgba(148,197,255,0.12)] pt-8 text-center">
-                  <p className="text-sm uppercase tracking-[0.22em] text-[#8DA2BF]">
-                    Assinatura anual
-                  </p>
-                  <p className="font-display mt-3 text-[clamp(2rem,7vw,3rem)] font-extrabold leading-none">
-                    {site.parcelas}
-                  </p>
-                  <p className="mt-3 text-lg text-[#8DA2BF]">
-                    ou <strong className="text-[#EAF2FF]">{site.precoAvista}</strong> à vista
-                  </p>
-                  <div className="mx-auto mt-6 max-w-sm">
-                    <BonesBar />
+              {/* Card do boné */}
+              <Reveal delay={0.15}>
+                <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[rgba(232,194,106,0.3)] bg-gradient-to-b from-[rgba(232,194,106,0.08)] to-[#0D1420] p-6 text-center sm:p-8">
+                  <div className="transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:perspective(800px)_rotateY(-8deg)_rotateX(4deg)]">
+                    <SmartImage
+                      src="/images/bone.png"
+                      alt="Boné oficial do Refriclube"
+                      width={560}
+                      height={420}
+                      sizes="(max-width: 768px) 100vw, 420px"
+                      label="Boné oficial"
+                      icon="🧢"
+                      className="h-auto w-full rounded-2xl object-contain"
+                    />
                   </div>
-                  {site.prazoOferta ? (
-                    <div className="mt-6 flex justify-center">
-                      <Countdown />
-                    </div>
-                  ) : null}
-                  <div className="mt-7">
-                    <CTAButton className="w-full sm:w-auto sm:min-w-[320px]">
-                      Quero entrar na Liga agora
-                    </CTAButton>
-                  </div>
-                  <p className="mt-4 text-[15px] text-[#8DA2BF]">
-                    🔒 Pagamento seguro pela Hotmart · Cartão, Pix e boleto
+                  <h3 className="font-display mt-6 text-xl font-bold text-[#E8C26A]">
+                    Boné oficial do Refriclube
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-[#8DA2BF]">
+                    Exclusivo da Turma Fundadora. O boné é enviado após o período de
+                    garantia de {site.garantiaDias} dias.
                   </p>
-                  {/* TODO: [AJUSTAR] confirmar métodos de pagamento habilitados na Hotmart (Cartão, Pix, boleto). */}
+                  {/* TODO: [AJUSTAR] frete do boné: incluso ou por conta do membro? + prazo de envio. */}
                 </div>
-              </div>
-            </Reveal>
-
-            {/* Card do boné */}
-            <Reveal delay={0.15}>
-              <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[rgba(232,194,106,0.3)] bg-gradient-to-b from-[rgba(232,194,106,0.08)] to-[#0D1420] p-6 text-center sm:p-8">
-                <div className="transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:perspective(800px)_rotateY(-8deg)_rotateX(4deg)]">
-                  <SmartImage
-                    src="/images/bone.png"
-                    alt="Boné oficial do Refriclube"
-                    width={560}
-                    height={420}
-                    sizes="(max-width: 768px) 100vw, 420px"
-                    label="Boné oficial"
-                    icon="🧢"
-                    className="h-auto w-full rounded-2xl object-contain"
-                  />
-                </div>
-                <h3 className="font-display mt-6 text-xl font-bold text-[#E8C26A]">
-                  Boné oficial do Refriclube
-                </h3>
-                <p className="mt-2 text-base leading-relaxed text-[#8DA2BF]">
-                  Exclusivo da Turma Fundadora. O boné é enviado após o período de
-                  garantia de {site.garantiaDias} dias.
-                </p>
-                {/* TODO: [AJUSTAR] frete do boné: incluso ou por conta do membro? + prazo de envio. */}
-              </div>
-            </Reveal>
-          </div>
+              </Reveal>
+            </div>
+          ) : (
+            /* Sem foto do boné: só o card de preço, centralizado */
+            <div className="relative mx-auto max-w-2xl">
+              <Reveal>
+                <CardPreco />
+              </Reveal>
+            </div>
+          )}
         </div>
       </div>
     </section>

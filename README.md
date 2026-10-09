@@ -45,7 +45,7 @@ Coloque os arquivos em `public/images/`:
 - `refriclube-app.png` — print do Refriclube no celular
 - `logo-refriclube.svg` — logo (opcional)
 
-Enquanto as fotos não existirem, a página mostra um placeholder escuro elegante automaticamente (nunca foto genérica).
+Enquanto as fotos não existirem, **nada é exibido no lugar delas** (sem placeholder): a seção do Tiago mostra só o texto centralizado e a oferta mostra só o card de preço. Depois de colocar cada arquivo, ligue a flag correspondente em `config/site.ts`: `mostrarFotoTiago`, `mostrarFotoBone` ou `mostrarPrintApp` (todas começam em `false`).
 
 ## 4. Publicação: GitHub + Vercel
 

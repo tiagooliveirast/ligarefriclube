@@ -11,6 +11,11 @@ export const site = {
   instagram: "https://instagram.com/tiagooliveiratecnico",
   instagramHandle: "@tiagooliveiratecnico",
   refriclubeUrl: "https://refriclube.app.br",
+  // Fotos: mantenha false enquanto os arquivos não existirem em public/images/
+  // (nada de placeholder é exibido). Coloque a foto e mude para true.
+  mostrarFotoTiago: false, // public/images/tiago.jpg
+  mostrarFotoBone: false, // public/images/bone.png
+  mostrarPrintApp: false, // public/images/refriclube-app.png
   // [AJUSTAR] WhatsApp para dúvidas — ex: "https://wa.me/55719XXXXXXXX?text=Tenho%20uma%20d%C3%BAvida%20sobre%20a%20Liga"
   whatsappDuvidas: "",
   metaPixelId: "", // [AJUSTAR] vazio = não carrega

@@ -117,7 +117,7 @@ export default function Chaves() {
                     </h3>
                     <p className="tnum mt-1 text-lg font-bold">
                       {n.faixa}
-                      <span className="text-sm font-medium opacity-80"> /mês</span>
+                      <span className="text-[15px] font-medium opacity-80"> /mês</span>
                     </p>
                   </div>
                 </TiltCard>
