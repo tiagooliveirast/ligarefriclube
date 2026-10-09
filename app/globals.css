@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #070b12;
+  --bg-elev: #0d1420;
+  --surface: #121b2a;
+  --border: rgba(148, 197, 255, 0.1);
+  --text: #eaf2ff;
+  --text-muted: #8da2bf;
+  --ice: #5bc8ff;
+  --ice-deep: #1e7bff;
+  --frost: #bdebff;
+  --gold: #e8c26a;
+  --danger-soft: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(91, 200, 255, 0.35);
+  color: #fff;
+}
+
+/* ---------- Typography ---------- */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+/* Números tabulares sem fonte extra (Inter com tnum) */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Focus ---------- */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ice);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Noise overlay ---------- */
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 38s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation: marquee-right 42s linear infinite;
+}
+
+/* Mobile: marquee mais lento e legível */
+@media (max-width: 767px) {
+  .marquee-track {
+    animation-duration: 60s;
+  }
+  .marquee-track.reverse {
+    animation-duration: 68s;
+  }
+}
+
+.marquee-paused:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- Hero entrance (CSS puro, sem JS — não atrasa o LCP) ---------- */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter {
+  opacity: 0;
+  animation: hero-in 0.6s cubic-bezier(0.21, 0.65, 0.16, 1) forwards;
+}
+@keyframes shine-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+  }
+}
+
+.cta-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  animation: shine-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ---------- Gradient mesh blobs ---------- */
+@keyframes blob-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, -40px) scale(1.15);
+  }
+}
+
+@keyframes blob-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.1);
+  }
+  50% {
+    transform: translate(-70px, 50px) scale(0.95);
+  }
+}
+
+.blob-a {
+  animation: blob-drift-a 14s ease-in-out infinite;
+}
+
+.blob-b {
+  animation: blob-drift-b 18s ease-in-out infinite;
+}
+
+/* ---------- Legacy shimmer ---------- */
+@keyframes legacy-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.legacy-shimmer {
+  background-size: 220% 220%;
+  animation: legacy-shift 6s ease infinite;
+}
+
+/* ---------- Cards ---------- */
+.card-border {
+  border: 1px solid var(--border);
+}
+
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(91, 200, 255, 0.16),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* No toque (sem hover): pulso suave quando visível, sem JS */
+@media (hover: none) {
+  .spotlight-card::before {
+    opacity: 1;
+    animation: spot-pulse 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes spot-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .marquee-track.reverse,
+  .blob-a,
+  .blob-b,
+  .cta-shine,
+  .hero-enter,
+  .legacy-shimmer {
+    animation: none !important;
+  }
+  .hero-enter {
+    opacity: 1 !important;
+  }
+  .spotlight-card::before {
+    display: none;
+  }
+}
